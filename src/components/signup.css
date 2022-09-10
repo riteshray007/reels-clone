@@ -1,0 +1,43 @@
+.signupwrapper {
+    margin-bottom: 5vh;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    /* flex-direction: column; */
+    /* margin-right: 10vw; */
+    
+}
+
+.signupcard {
+    margin-top: 20vh;
+    align-items: center;
+    text-align: center;
+    box-shadow: 2.2px 4.5px 4.5px hsl(0deg 0% 0% / 0.43);
+}
+
+.secondcard {
+    text-align: center;
+    padding: 20px;
+    width: 300px;
+    border-top-style: ridge;
+}
+.secdiv{
+    margin:0px;
+    padding: 0px;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+.facebookicon{   
+    margin-right: 4px;
+    align-items: center;
+    padding: 0rem;
+}
+.faceb{
+    width: 59%;  
+    height: 25px;
+    word-spacing: 0px;
+}
+.firstcard{
+    border-top-style: ridge;   
+    border-width: 0.2px;
+}
