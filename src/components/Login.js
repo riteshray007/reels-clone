@@ -30,7 +30,7 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { CarouselProvider, Slider, Slide, Image } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
  import './login.css';
 
 
@@ -38,8 +38,26 @@ import {Link} from 'react-router-dom'
 
 export default function Login() {
 
-    const test = useContext(AuthContext)
+    const {login} = useContext(AuthContext)
+    const navigate = useNavigate()
     // console.log(test)
+
+    const handlelogin = async()=>{
+        try {
+            setloading(true)
+            await login(email,password)
+            navigate('/feed')
+            setloading(false)
+        } catch (error) {
+            // console.log(error)
+            setError(error)
+            console.log(error)
+            setTimeout(()=>{
+                setError('')
+            },3000)
+            setloading(false)
+        }
+    }
 
 
     const useStyles = createUseStyles({
@@ -70,22 +88,9 @@ export default function Login() {
     const [email , setemail] = useState('')
     const [password , setpass] = useState('')
     const [error , setError] = useState('')
+    const [loading , setloading] = useState(false)
     
-    // const login= async ()=>{
-    //     await auth.signInWithEmailAndPassword(email , password)
-    // }
-
-    // useEffect(() =>{
-    //     let usersub = auth.onAuthStateChanged((user)=> {setuser(user)});
-
-    //     return ()=>{
-    //         usersub(); 
-    //     };
-    // },[]  )
-
-    // const logout = async() =>{
-    //     await auth.signOut();
-    // }
+    
 
     return (
 
@@ -136,10 +141,8 @@ export default function Login() {
                         <TextField id="outlined-basic" value={email} onChange={(e)=>setemail(e.target.value)}  label="Email" variant="outlined" style={{ width: '80%' }} fullWidth={true} margin='dense' size='small' />
                         <TextField id="outlined-password-input" value={password} onChange={(e)=>setpass(e.target.value)} label="Password" type="password" autoComplete="current-password"   style={{ width: '80%' }} fullWidth={true} margin='dense' size='small' />
 
-                        <Button  className={classes.button1} style={{ width: '80%', marginTop: '1.2vh', textTransform: 'none' }} variant="contained">Log in </Button>
-                        <h4>
-
-                        
+                        <Button onClick={()=>handlelogin()}  className={classes.button1} style={{ width: '80%', marginTop: '1.2vh', textTransform: 'none' }} variant="contained">Log in </Button>
+                        <h4>                        
                             <span>OR</span>
                         </h4>
                         <Button variant="text" style={{ textTransform: 'none', marginTop: '0.1vh', marginBottom: '0vh', }}> <FontAwesomeIcon className='facebookicon'

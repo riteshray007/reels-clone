@@ -29,32 +29,33 @@ export default function SignUP() {
 
     // let uid;
     const {signup} = useContext(AuthContext)
+    //destructure
+    const navigate = useNavigate()
     const [email, setemail] = useState('')
     const [password, setpass] = useState('')
     const [error , setError] = useState('')
     const [file , setfile] = useState(null)
     const [name , setname] = useState('')
     const [ loading , setLoading ] = useState(false)
-    const navigate = useNavigate()
     // const [user, setuser] = useState('')
 
 
     const handleclick = async ()=>{
-        console.log(email)
-        console.log(password)
-        console.log(name)
-        console.log(file)
+        // console.log(email)
+        // console.log(password)
+        // console.log(name)
+        // console.log(file)
   
         try {
           setLoading(true)
           const userInfo = await signup(email , password)
-          console.log(userInfo.user.uid)
+          console.log(userInfo)
           let uid =  userInfo.user.uid
           
   
           const storageRef = ref(storage , `${userInfo.user.uid}/Profile`)
           const uploadTask = uploadBytesResumable(storageRef , file )
-  
+   
           uploadTask.on('state_changed' , (snapshot)=>{
             const progress =
                   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -71,7 +72,8 @@ export default function SignUP() {
                         userId:uid,
                         fullname:name,
                         profileUrl:downloadURL,
-                        createdAt:database.getTimestamp()
+                        createdAt:database.getTimestamp(),
+                        password : password
                     })
                      })
           })
@@ -80,58 +82,9 @@ export default function SignUP() {
           navigate('/feed')
         } catch (error) {
           console.log(error)
-        }
-  
-  
-  
+        } 
    }
-        // if(file == null ){
-        //     setError('profile picture not uploaded')
-        //     setTimeout(()=>{
-        //         setError('')
-        //     } , 3000 )
-        // }
-        // try{
-        //     let userObj = await signup(email , password)
-        //     let uid = userObj.user.uid
-        //     // let fname = userObj.user.name
-        //     // console.log( " u id - " + uid)
-        //     // console.log( " name - " + fname)
-
-        // } catch(error){
-        //       setError(error)
-        //       console.log(error);
-
-        //       const uploadImage = storage.ref(`/users/${uid}/profileImage`).put(file)
-        //       uploadImage.on('state-Changed' , fn1 , fn2 , fn3)
-
-        //       function fn1(snapshot){
-        //         let progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-        //         console.log(`upload is ${progress} complete`)
-        //       }
-        //       function fn2(){
-        //         setError(error)
-        //         setTimeout(()=>{
-        //             setError('')
-        //         }, 3000);  
-        //         setloading(false)
-        //         return;
-        //       }
-        //       function fn3(){
-        //         uploadImage.snapshot.ref.getDownloadURL().then((url)=>{
-        //             database.users.doc(uid).set({
-        //                 email : email,
-        //                 userId : uid,
-        //                 fullname : name,
-        //                 profileUrl : url,
-        //                 createdAt : database.getTimestamp()
-
-        //             })
-        //         })
-        //       }
-        // }
-    // }
-
+       
     const useStyles = createUseStyles({
         text1: {
             color: 'gray',
@@ -156,22 +109,6 @@ export default function SignUP() {
     })
     const classes = useStyles()
 
-    // const create = async () => {
-    //     await auth.createUserWithEmailAndPassword(email, password)
-    // }
-    
-    // useEffect(() =>{
-    //     let usersub = auth.onAuthStateChanged((user)=> {setuser(user)});
-
-    //     return ()=>{
-    //         usersub(); 
-    //     };
-    // },[]  )
-
-    // const logout = async() =>{
-    //     await auth.signOut();
-    // }
-
     return (
         <div className='signupwrapper' >
             <div className='signupcard' >
@@ -184,9 +121,9 @@ export default function SignUP() {
                     </Typography>
                     <Button variant="contained" className='faceb' style={{ textTransform: 'none', marginTop: '1.2vh', marginBottom: '1vh' }}> <FontAwesomeIcon className='facebookicon'
                         style={{ width: '18px' }} icon={faFacebook} ></FontAwesomeIcon> Log in With facebook</Button>
-                    <TextField value={name} onChange={(e)=>setname(e.target.value)} id="outlined-basic" label="Full Name" variant="outlined" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <TextField value={email} onChange={(e)=>setemail(e.target.value)} id="outlined-basic" label="Email" variant="outlined" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <TextField  value={password} onChange={(e)=>setpass(e.target.value)} id="outlined-password-input"   label="Password" type="password" autoComplete="current-password" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
+                    <TextField value={name} onChange={(e)=>setname(e.target.value)} id="outlined-basic" label="Full Name" variant="outlined" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <Button style={{ width: '90%', textTransform: 'none', fontFamily: 'Oswald , sans-serif', fontWeight: '30px' }} color="secondary" component='label' >
                         <input type='file' accept='image/*' hidden onChange={(e)=>setfile(e.target.files[0])}  />
                         upload profile picture  </Button>
@@ -214,7 +151,7 @@ export default function SignUP() {
                             Cookies Policy.
                         </Box>
                     </Typography>
-                    <Button  onClick={()=>handleclick()} className={classes.button1} style={{ width: '90%', height: '30px', textTransform: 'none', marginBottom: '2.5rem' }} disable={loading} variant="contained">Sign Up</Button>
+                    <Button  onClick={()=>handleclick()} className={classes.button1} style={{ width: '90%', height: '30px', textTransform: 'none', marginBottom: '2.5rem' }}  variant="contained">Sign Up</Button>
                     
                    {/* { user == null? <div> </div> : <Button onClick={() => logout()} className={classes.button1} style={{ width: '90%', height: '30px', textTransform: 'none', marginBottom: '2.5rem' }} variant="contained">Log out</Button>
                    } */}
