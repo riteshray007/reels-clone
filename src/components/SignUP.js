@@ -14,8 +14,9 @@ import Box from '@mui/material/Box';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import './signup.css'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 import { auth } from '../firebase';
+import {ref ,getStorage, uploadBytesResumable , getDownloadURL , uploadString } from 'firebase/storage'
 // import { create } from '@mui/material/styles/createTransitions';
 
 
@@ -26,63 +27,110 @@ import { auth } from '../firebase';
 
 export default function SignUP() {
 
-    let uid;
+    // let uid;
+    const {signup} = useContext(AuthContext)
     const [email, setemail] = useState('')
     const [password, setpass] = useState('')
     const [error , setError] = useState('')
     const [file , setfile] = useState(null)
     const [name , setname] = useState('')
-    const [ loading , setloading ] = useState(false)
-    
-    const [user, setuser] = useState('')
+    const [ loading , setLoading ] = useState(false)
+    const navigate = useNavigate()
+    // const [user, setuser] = useState('')
 
-    const {signup} = useContext(AuthContext)
 
-    const handleclick = async()=>{
-        if(file == null ){
-            setError('profile picture not uploaded')
-            setTimeout(()=>{
-                setError('')
-            } , 3000 )
-        }
-        try{
-            let userObj = await signup(email , password)
-            let uid = userObj.user.uid
-            console.log(userObj)
-
-        } catch(error){
-              setError(error)
-              console.log(error);
-
-              const uploadImage = storage.ref(`/users/${uid}/profileImage`).put(file)
-              uploadImage.on('state-Changed' , fn1 , fn2 , fn3)
-
-              function fn1(snapshot){
-                let progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
-                console.log(`upload is ${progress} complete`)
-              }
-              function fn2(){
-                setError(error)
-                setTimeout(()=>{
-                    setError('')
-                }, 3000);
-                setloading(false)
-                return;
-              }
-              function fn3(){
-                uploadImage.snapshot.ref.getDownloadURL().then((url)=>{
-                    database.users.doc(uid).set({
-                        email : email,
-                        userId : uid,
-                        fullname : name,
-                        profileUrl : url,
-                        createdAt : database.getTimestamp()
-
+    const handleclick = async ()=>{
+        console.log(email)
+        console.log(password)
+        console.log(name)
+        console.log(file)
+  
+        try {
+          setLoading(true)
+          const userInfo = await signup(email , password)
+          console.log(userInfo.user.uid)
+          let uid =  userInfo.user.uid
+          
+  
+          const storageRef = ref(storage , `${userInfo.user.uid}/Profile`)
+          const uploadTask = uploadBytesResumable(storageRef , file )
+  
+          uploadTask.on('state_changed' , (snapshot)=>{
+            const progress =
+                  (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
+          },
+          (error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            console.log(error);
+          }, ()=>{
+                     getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL)=>{
+                      database.users.doc(uid).set({
+                        email:email,
+                        userId:uid,
+                        fullname:name,
+                        profileUrl:downloadURL,
+                        createdAt:database.getTimestamp()
                     })
-                })
-              }
+                     })
+          })
+  
+  
+          navigate('/feed')
+        } catch (error) {
+          console.log(error)
         }
-    }
+  
+  
+  
+   }
+        // if(file == null ){
+        //     setError('profile picture not uploaded')
+        //     setTimeout(()=>{
+        //         setError('')
+        //     } , 3000 )
+        // }
+        // try{
+        //     let userObj = await signup(email , password)
+        //     let uid = userObj.user.uid
+        //     // let fname = userObj.user.name
+        //     // console.log( " u id - " + uid)
+        //     // console.log( " name - " + fname)
+
+        // } catch(error){
+        //       setError(error)
+        //       console.log(error);
+
+        //       const uploadImage = storage.ref(`/users/${uid}/profileImage`).put(file)
+        //       uploadImage.on('state-Changed' , fn1 , fn2 , fn3)
+
+        //       function fn1(snapshot){
+        //         let progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100
+        //         console.log(`upload is ${progress} complete`)
+        //       }
+        //       function fn2(){
+        //         setError(error)
+        //         setTimeout(()=>{
+        //             setError('')
+        //         }, 3000);  
+        //         setloading(false)
+        //         return;
+        //       }
+        //       function fn3(){
+        //         uploadImage.snapshot.ref.getDownloadURL().then((url)=>{
+        //             database.users.doc(uid).set({
+        //                 email : email,
+        //                 userId : uid,
+        //                 fullname : name,
+        //                 profileUrl : url,
+        //                 createdAt : database.getTimestamp()
+
+        //             })
+        //         })
+        //       }
+        // }
+    // }
 
     const useStyles = createUseStyles({
         text1: {
@@ -140,7 +188,7 @@ export default function SignUP() {
                     <TextField value={email} onChange={(e)=>setemail(e.target.value)} id="outlined-basic" label="Email" variant="outlined" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <TextField  value={password} onChange={(e)=>setpass(e.target.value)} id="outlined-password-input"   label="Password" type="password" autoComplete="current-password" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <Button style={{ width: '90%', textTransform: 'none', fontFamily: 'Oswald , sans-serif', fontWeight: '30px' }} color="secondary" component='label' >
-                        <input type='file' accept='image/*' hidden onChange={(e)=>setfile(e.target.files[1])}  />
+                        <input type='file' accept='image/*' hidden onChange={(e)=>setfile(e.target.files[0])}  />
                         upload profile picture  </Button>
                     <CardContent>
                         {error!='' && <Alert severity="error">This is an error alert — check it out!</Alert>}
