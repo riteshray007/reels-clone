@@ -104,8 +104,8 @@ export default function Login() {
                         visibleSlides={1}
                         totalSlides={5}
                         // step={3}
-                        naturalSlideWidth={239}
-                        naturalSlideHeight={423}
+                        naturalSlideWidth={210}
+                        naturalSlideHeight={380}
                         hasMasterSpinner
                         isPlaying={true}
                         infinite={true}

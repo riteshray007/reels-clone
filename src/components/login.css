@@ -55,7 +55,7 @@
 
     .img-car{
         margin-top: 5vh;
-        width: 30vw;
+        width: 29.94vw;
         height: 80vh;
         position: relative;
     }
@@ -63,6 +63,12 @@
         position: absolute;
         width: 54%;
         /* height: 50%; */
-        left:9.75vw;
-        top: 12.9vh;
+        left:9.78vw;
+        top: 12.7vh;
+    }
+
+    .signup-page{
+        align-items: center;
+        justify-content: center;
+
     }

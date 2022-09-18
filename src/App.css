@@ -1,9 +1,9 @@
-.page{
+/* .page{
     display : flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     justify-content: center;
     align-items: center;    
 }
 .page >*{
     margin-left: 5vw;
-}
+} */
