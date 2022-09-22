@@ -1,27 +1,104 @@
-.feedswrapper{
+.feedswrapper {
     display: flex;
-    justify-content:space-evenly;
-    /* align-items: center; */
+    justify-content: space-evenly;
+    align-items: center;
     flex-direction: column;
-    
+    width: 100%;
+
 }
-.header{
+
+.header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content:space-evenly; */
+    /* justify-content: center; */
     height: 6vh;
-    width:100%;
-    background-color: #4badabb6;
+    width: 100vw;
+    /* background-color: #4badabb6; */
+    background-image: linear-gradient(to top , rgb(211, 211, 211) 0%   ,  white 90% );
 }
-.uploadb{
+
+.uploadb {
     display: flex;
     justify-content: center;
-    margin-top: 3vh;
+    margin-top: 2vh;
 }
-.uploadwrapper{
+
+.uploadwrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    margin-top: 0rem ;
 }
+.postwrapper{
+    margin: 0rem;
+}
+
+.postholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* background-color: white; */
+    /* background-image: url('../Assets/pexels-jakub-novacek-924824.jpg'); */
+    background: rgb(2, 0, 36);
+    /* background: linear-gradient(90deg,#66CDAA 0%, #90EE90 25%, #A9BA9D 100%); */
+    /* background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%); */
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    background-size: cover;
+    border-radius: 20px;
+    align-items: center;
+    width: 35vw;
+    margin-bottom: 4vh;
+    margin-top: 0rem ;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    border-radius: 20px;
+    overflow: scroll;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+.video-container::-webkit-scrollbar {
+    display: none;
+}
+
+.video-tab {
+    width: 100%;
+    height: 90vh;
+    scroll-snap-align: start;
+}
+.nav-1st{
+    width: 10vw;
+    height: 7vh;
+    margin-left: 10vw;
+}
+.nav-2nd{
+    display: flex;
+    align-items: center;
+    margin-left:25vw;
+    font-family: 'Ms Madi', cursive;
+    font-size: 50px;
+    /* margin-top: 0rem; */
+}
+.nav-3rd{
+    margin-left:30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6vw;
+}
+.nav-3rd >* {
+    margin-left: 0.8vw;
+    width: 1.5vw;
+    height: 1.5vw;
+}
+
+

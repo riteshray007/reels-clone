@@ -11,8 +11,10 @@ import { createUseStyles } from 'react-jss';
 import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+
 import './signup.css'
 import { Link , useNavigate } from 'react-router-dom'
 import { auth } from '../firebase';
@@ -119,7 +121,8 @@ export default function SignUP() {
                     <Typography className={classes.text1} >
                         Sign up to see photos and videos from your friends
                     </Typography>
-                    <Button variant="contained" className='faceb' style={{ textTransform: 'none', marginTop: '1.2vh', marginBottom: '1vh' }}> <FontAwesomeIcon className='facebookicon'
+                    <Button variant="contained" className='faceb' style={{ textTransform: 'none', marginTop: '1.2vh', marginBottom: '1vh' }}> 
+                    <FontAwesomeIcon className='facebookicon'
                         style={{ width: '18px' }} icon={faFacebook} ></FontAwesomeIcon> Log in With facebook</Button>
                     <TextField value={email} onChange={(e)=>setemail(e.target.value)} id="outlined-basic" label="Email" variant="outlined" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
                     <TextField  value={password} onChange={(e)=>setpass(e.target.value)} id="outlined-password-input"   label="Password" type="password" autoComplete="current-password" style={{ width: '90%' }} fullWidth={true} margin='dense' size='small' />
