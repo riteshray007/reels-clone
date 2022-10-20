@@ -46,7 +46,9 @@
   background: rgb(2, 0, 36);
   /* background: linear-gradient(90deg,#66CDAA 0%, #90EE90 25%, #A9BA9D 100%); */
   /* background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%); */
-  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+  /* background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+   */
+   background-image: linear-gradient(0deg, rgb(249, 249, 249) 0%, #d0f49d 100%);
   background-size: cover;
   border-radius: 20px;
   align-items: center;
@@ -111,18 +113,26 @@
 
 .likeicon {
   /* position:absolute; */
-  border-color: #52cffe;
+  /* border-color: #52cffe;
   border-width: 1px;
+   */
   /* bottom:1.9vh;
         left:37.7vw; */
+
+        
 }
+/* .likeicon :after {
+  background-color: #3388cc;
+} */
 
 .like {
   color: #fb3958;
+  
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
 
 .unlike {
-  color: black;
+  color: white;
 }
 
 .avatardiv {
@@ -139,7 +149,12 @@
 .aname {
   font-family: 'Kanit', sans-serif;
   font-size: larger;
-  margin: 0rem;
+  margin: 0rem;color: white;
+  text-shadow: 1px 1px 1px black, 0 0 2px blue, 0 0 3px darkblue;
+
+}
+.chat-styling{
+  color: white;         
 }
 
 .videos {
@@ -151,6 +166,8 @@
   font-size: medium;
   margin-bottom: 6px;
   margin-left: 3px;
+  color: white;
+        text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 }
 
 .model-container {
@@ -158,8 +175,9 @@
   height: 100%;
   align-items: center;
   justify-content: center;
-  background-image: linear-gradient(to top, rgb(98, 139, 142) 0%, white 90%);
+  background-image: linear-gradient(0deg, rgba(249,249,249,1) 0%, rgba(184,237,103,1) 100%);
   width: 100%;
+  /* background-color:  #88B04B; */
 }
 
 .video-model {
@@ -183,7 +201,12 @@
 
 .addcommentwrapper{
   display : flex;
+  /* background-color: #d7f4ad; */
+  background-image: linear-gradient(0deg, rgb(249, 249, 249) 0%, #d0f49d 100%);
+}
 
+.comments{
+  background-image: linear-gradient(0deg, rgb(249, 249, 249) 0%, #d0f49d 100%);
 }
 
 .comments * {
@@ -193,6 +216,9 @@
   scroll-snap-type: y mandatory;
   scrollbar-width: none;
 }
+
+
+
 /* .commentcard1::-webkit-scrollbar {
   display: none;
 } */

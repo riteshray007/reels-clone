@@ -1,13 +1,11 @@
-import React,{useEffect , useState} from 'react';
-import {auth} from '../firebase' 
+import React, { useEffect, useState } from 'react';
+import { auth } from '../firebase'
 import Card from '@mui/material/Card';
 // import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
-import {AuthContext} from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext'
 import { useContext } from 'react';
-
-
 
 import Instalogo2 from '../Assets/Instagram_logo.svg.png';
 import insta from '../Assets/insta.png';
@@ -16,7 +14,6 @@ import img2 from '../Assets/img2.jpg';
 import img3 from '../Assets/img3.jpg';
 import img4 from '../Assets/img4.jpg';
 import img5 from '../Assets/img5.jpg';
-
 
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -30,35 +27,34 @@ import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { CarouselProvider, Slider, Slide, Image } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
-import {Link, useNavigate} from 'react-router-dom'
- import './login.css';
+import { Link, useNavigate } from 'react-router-dom'
+import './login.css';
 
 
 // import { margin } from '@mui/system';
 
 export default function Login() {
 
-    const {login} = useContext(AuthContext)
+    const { login } = useContext(AuthContext)
     const navigate = useNavigate()
     // console.log(test)
 
-    const handlelogin = async()=>{
+    const handlelogin = async () => {
         try {
             setloading(true)
-            await login(email,password)
+            await login(email, password)
             navigate('/feed')
             setloading(false)
         } catch (error) {
             // console.log(error)
             setError(error)
             console.log(error)
-            setTimeout(()=>{
+            setTimeout(() => {
                 setError('')
-            },3000)
+            }, 3000)
             setloading(false)
         }
     }
-
 
     const useStyles = createUseStyles({
         text1: {
@@ -84,19 +80,19 @@ export default function Login() {
         }
     })
     const classes = useStyles()
- 
-    const [email , setemail] = useState('')
-    const [password , setpass] = useState('')
-    const [error , setError] = useState('')
-    const [loading , setloading] = useState(false)
-    
-    
+
+    const [email, setemail] = useState('')
+    const [password, setpass] = useState('')
+    const [error, setError] = useState('')
+    const [loading, setloading] = useState(false)
+
+
 
     return (
 
         <div className='signup-page'>
 
-            <div className='img-car' style={{ background: 'url(' + insta + ')' , backgroundSize:'cover' }  } >
+            <div className='img-car' style={{ background: 'url(' + insta + ')', backgroundSize: 'cover' }} >
 
                 <div className='car' >
 
@@ -115,11 +111,10 @@ export default function Login() {
                     >
                         <Slider>
                             <Slide index={0}> <Image src={img1} alt='...' />  </Slide>
-                            <Slide index={1}> <Image src={img2} alt='...'/>  </Slide>
-                            <Slide index={2}> <Image src={img3} alt='...'/>  </Slide>
-                            <Slide index={3}> <Image src={img4} alt='...'/>  </Slide>
-                            <Slide index={4}> <Image src={img5} alt='...'/>  </Slide>
-
+                            <Slide index={1}> <Image src={img2} alt='...' />  </Slide>
+                            <Slide index={2}> <Image src={img3} alt='...' />  </Slide>
+                            <Slide index={3}> <Image src={img4} alt='...' />  </Slide>
+                            <Slide index={4}> <Image src={img5} alt='...' />  </Slide>
                         </Slider>
                     </CarouselProvider>
 
@@ -127,32 +122,58 @@ export default function Login() {
 
             </div>
 
-
-
-
             <div className='signupwrapper'  >
                 <div className='signupcard' >
 
                     <Card sx={{ maxWidth: 345 }}>
                         <div>
-                            <img alt='...' className='instalogo' src={Instalogo2} style={{ width: '70%', marginTop: '4vh', height: '10%' }} />
+                            <img alt='...' className='instalogo'
+                                src={Instalogo2} style={{
+                                    width: '70%',
+                                    marginTop: '4vh', height: '10%'
+                                }} />
                         </div>
 
-                        <TextField id="outlined-basic" value={email} onChange={(e)=>setemail(e.target.value)}  label="Email" variant="outlined" style={{ width: '80%' }} fullWidth={true} margin='dense' size='small' />
-                        <TextField id="outlined-password-input" value={password} onChange={(e)=>setpass(e.target.value)} label="Password" type="password" autoComplete="current-password"   style={{ width: '80%' }} fullWidth={true} margin='dense' size='small' />
+                        <TextField id="outlined-basic"
+                            value={email} onChange={(e) => setemail(e.target.value)}
+                            label="Email" variant="outlined"
+                            style={{ width: '80%' }} fullWidth={true}
+                            margin='dense' size='small' />
+                        <TextField id="outlined-password-input"
+                            value={password} onChange={(e) => setpass(e.target.value)}
+                            label="Password" type="password"
+                            autoComplete="current-password"
+                            style={{ width: '80%' }} fullWidth={true}
+                            margin='dense' size='small' />
 
-                        <Button onClick={()=>handlelogin()}  className={classes.button1} style={{ width: '80%', marginTop: '1.2vh', textTransform: 'none' }} variant="contained">Log in </Button>
-                        <h4>                        
+                        <Button onClick={() => handlelogin()}
+                            className={classes.button1}
+                            style={{
+                                width: '80%', marginTop: '1.2vh',
+                                textTransform: 'none'
+                            }}
+                            variant="contained">Log in </Button>
+                        <h4>
                             <span>OR</span>
                         </h4>
-                        <Button variant="text" style={{ textTransform: 'none', marginTop: '0.1vh', marginBottom: '0vh', }}> <FontAwesomeIcon className='facebookicon'
-                            icon={faFacebook} ></FontAwesomeIcon> Log In With Facebook</Button>
+                        <Button variant="text"
+                            style={{
+                                textTransform: 'none',
+                                marginTop: '0.1vh', marginBottom: '0vh',
+                            }}>
+                            <FontAwesomeIcon className='facebookicon'
+                                icon={faFacebook} >
+                            </FontAwesomeIcon> Log In With Facebook</Button>
                         <CardContent style={{ marginTop: '0vh' }} >
-                            {error!='' && <Alert severity="error">This is an error alert — check it out!</Alert>}
+                            {error != '' && <Alert severity="error">This is an error alert — check it out!</Alert>}
                         </CardContent>
-                        <Button style={{ marginBottom: '2.5vh', textTransform: 'none', }}> <Typography className={classes.text2}   >
-                            Forgotten your password?
-                        </Typography></Button>
+                        <Button style={{
+                            marginBottom: '2.5vh',
+                            textTransform: 'none',
+                        }}> <Typography
+                            className={classes.text2}   >
+                                Forgotten your password?
+                            </Typography></Button>
 
 
                     </Card>
@@ -161,10 +182,12 @@ export default function Login() {
 
                     <Card className='secondcard' sx={{ maxWidth: 345, }} >
 
-                    {/* { user == null? <div> </div> : <Button className={classes.button1} style={{ width: '90%', height: '30px', textTransform: 'none', marginBottom: '2.5rem' }} variant="contained">Log out</Button>
+                        {/* { user == null? <div> </div> : <Button className={classes.button1} style={{ width: '90%', height: '30px', textTransform: 'none', marginBottom: '2.5rem' }} variant="contained">Log out</Button>
                    } */}
                         <Typography sx={{ fontSize: '15px' }} >Don't have an account?
-                            <Button vareint='text' sx={{ padding: '0rem', textTransform: 'none' }} > <Link to='/' style={{textDecoration:'none'}} > Sign up </Link></Button>
+                            <Button vareint='text'
+                                sx={{ padding: '0rem', textTransform: 'none' }} >
+                                <Link to='/' style={{ textDecoration: 'none' }} > Sign up </Link>  </Button>
                         </Typography>
                     </Card>
                 </div>

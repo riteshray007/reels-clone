@@ -34,7 +34,7 @@ function Like({userData  , postData }) {
             like!=null?
             <>
                 {
-                    like===true ? <FavoriteIcon className='likeicon like' onClick={()=>handlelike()}  /> : < FavoriteIcon className='likeicon unlike' onClick={()=>handlelike()}  />
+                    like===true ? <FavoriteIcon className='likeicon like' colour="primary"  onClick={()=>handlelike()}  /> : < FavoriteIcon className='likeicon unlike' onClick={()=>handlelike()}  />
                 }
             </>:
             <></>
