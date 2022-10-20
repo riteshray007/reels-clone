@@ -196,4 +196,7 @@ export default function Login() {
         </div>
     );
 }
+
+
+
 // npm i pure-react-carousel
